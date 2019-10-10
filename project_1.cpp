@@ -1,5 +1,4 @@
 #include <iostream>
-#include <algorithm>
 #include <string>
 using namespace std;
 
@@ -172,8 +171,7 @@ int main()
     int col_first[col+8]={row+4};
 
     while(type!="End"){
-        cout << type << endl;
-        //cout << "1111";
+        //cout << type << endl;
         int block_now[4][4] = {0};
         if(type=="T1"){
             type_num = 0;
@@ -242,13 +240,13 @@ int main()
         int flag=0, can=0;
         int place_row;
         for(int i=row+3; i>3; i--){
-                cout << "i:" << i << endl;
+                //cout << "i:" << i << endl;
             for(int row_pie=3;row_pie>=0;row_pie--){
-                cout << "***" << i << " " << row_pie << "***" <<endl;
+                //cout << "***" << i << " " << row_pie << "***" <<endl;
                 for(int col_pie=0; col_pie<4; col_pie++){
                     if(block_now[row_pie][col_pie] + game[i-(3-row_pie)][drop_pos+3+col_pie]==2){
                         flag=1;
-                        cout << flag << "%%%" << endl;
+                        //cout << flag << "%%%" << endl;
                         break;
                     }
                 }
@@ -262,8 +260,8 @@ int main()
                     break;
                 }
             }
-            cout << "can: " << can <<endl;
-            if(can=1){
+            //cout << "can: " << can <<endl;
+            if(can==1){
                 can = 0;
                 place_row = i;
                 cout << "break";
@@ -290,7 +288,16 @@ int main()
             }
         }
 
-        for(int i=4; i<row+4; i++){
+        cin >> type;
+        if(type=="End")
+            break;
+        cin >> drop_pos;
+        if(game_over==1){
+            cout << "break" << endl;
+            break;
+        }
+    }
+    for(int i=4; i<row+4; i++){
         for(int j=4;j<col+4;j++){
             //cout << i << " " << j << endl;
             cout << game[i][j];
@@ -298,120 +305,5 @@ int main()
         cout << endl;
     }
 
-        //cout << game_over << endl;
-        cin >> type >> drop_pos;
-        /*if(game_over=1){
-            cout << "break" << endl;
-            break;
-        }*/
-    }
-
-
     return 0;
 }
-
-/*int **block(string type_block)
-{
-    if(type_block == "T1"){
-        int block_T1[2][3] = {(1,1,1),
-                              (0,1,0)};
-        return block_T1[3];
-    }
-    else if(type_block == "T2"){
-        int block_T2[3][2]={(0,1),
-                            (1,1),
-                            (0,1)};
-        return block_T2[2];
-    }
-    else if(type_block == "T3"){
-        int block_T3[2][3]={(0,1,0),
-                            (1,1,1)};
-        return block_T3[3];
-    }
-    else if(type_block == "T4"){
-        int block_T4[3][2]={(1,0),
-                            (1,1),
-                            (1,0)};
-        return block_T4[2];
-    }
-    else if(type_block == "L1"){
-        int block_L1[3][2]={(1,0),
-                            (1,0),
-                            (1,1)};
-        return block_L1[2];
-    }
-    else if(type_block == "L2"){
-        int block_L2[2][3]={(1,1,1),
-                            (1,0,0),};
-        return block_L2[3];
-    }
-    else if(type_block == "L3"){
-        int block_L3[3][2]={(1,1),
-                            (0,1),
-                            (0,1)};
-        return block_L3[2];
-    }
-    else if(type_block == "L4"){
-        int block_L4[2][3]={(0,0,1),
-                            (1,1,1)};
-        return block_L4[3];
-    }
-    else if(type_block == "J1"){
-        int block_J1[3][2]={(0,1),
-                            (0,1),
-                            (1,1)};
-        return block_J1[2];
-    }
-    else if(type_block == "J2"){
-        int block_J2[2][3]={(1,0,0),
-                            (1,1,1)};
-        return block_J2[3];
-    }
-    else if(type_block == "J3"){
-        int block_J3[3][2]={(1,1),
-                            (1,0),
-                            (1,0)};
-        return block_J3[2];
-    }
-    else if(type_block == "J4"){
-        int block_J4[2][3]={(1,1,1),
-                            (0,0,1)};
-        return block_J4[3];
-    }
-    else if(type_block == "S1"){
-        int block_S1[2][3]={(0,1,1),
-                            (1,1,0)};
-        return block_S1[3];
-    }
-    else if(type_block == "S2"){
-        int block_S2[3][2]={(1,0),
-                            (1,1),
-                            (0,1)};
-        return block_S2[2];
-    }
-    else if(type_block == "Z1"){
-        int block_Z1[2][3]={(1,1,0),
-                            (0,1,1)};
-        return block_Z1[3];
-    }
-    else if(type_block == "Z2"){
-        int block_Z2[3][2]={(0,1),
-                            (1,1),
-                            (1,0)};
-        return block_Z2[2];
-    }
-    else if(type_block == "I1"){
-        int block_I1[4][1]={1,1,1,1};
-        return block_I1[1];
-    }
-    else if(type_block == "I2"){
-        int block_I2[1][4]={(1,1,1,1)};
-        return block_I2[4];
-    }
-    else if(type_block == "O"){
-        int block_O[2][2]={(1,1),
-                            (1,1)};
-        return block_O[2];
-    }
-}
-*/
