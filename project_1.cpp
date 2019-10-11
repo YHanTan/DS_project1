@@ -2,17 +2,6 @@
 #include <string>
 using namespace std;
 
-class Pieces
-{
-public:
-
-	int GetBlockType		(int pPiece, int pRotation, int pX, int pY);
-	int GetXInitialPosition (int pPiece, int pRotation);
-	int GetYInitialPosition (int pPiece, int pRotation);
-
-
-};
-
 // Pieces definition
 int Pieces [19 /*kind */ ][4 /* ROW */ ][4 /* COL */] =
 {
@@ -239,14 +228,13 @@ int main()
         //cout << "33333";
         int flag=0, can=0;
         int place_row;
-        for(int i=row+3; i>3; i--){
+        for(int i=row+3; i>=0; i--){
                 //cout << "i:" << i << endl;
             for(int row_pie=3;row_pie>=0;row_pie--){
                 //cout << "***" << i << " " << row_pie << "***" <<endl;
                 for(int col_pie=0; col_pie<4; col_pie++){
                     if(block_now[row_pie][col_pie] + game[i-(3-row_pie)][drop_pos+3+col_pie]==2){
                         flag=1;
-                        //cout << flag << "%%%" << endl;
                         break;
                     }
                 }
@@ -254,7 +242,6 @@ int main()
                     flag=0;
                     break;
                 }
-                //cout << "123456\n";
                 else if(row_pie==1 && flag!=1){
                     can=1;
                     break;
@@ -269,12 +256,36 @@ int main()
             }
         }
         //cout << "    " << place_row << "     " << "444444";
-        for(int i=place_row, l=3;i>place_row-4 && l>=0;i--, l--){
-            for(int j=drop_pos+3, k=0;j<drop_pos+7 && k<4;j++, k++){
+        for(int i=place_row, l=3;i>=0 && l>=0;i--, l--){
+            for(int j=drop_pos+3, k=0;j<col+8 && k<4;j++, k++){
                 //cout << "i=" << i << " " << "j=" << j << " " << "k=" << k << " " << "l=" << l << endl;
                 game[i][j] += block_now[l][k];
                 //cout << "&" << block_now[l][k] << " "<< game[i][j] << "&" << endl;
             }
+        }
+
+        //detect & delete row
+        int count_one = 0;
+        int delete_row[4]={0};
+        int count_row;
+        for(int i=4;i<row+4;i++){
+            for(int j=4;j<col+4;j++){
+                //cout << "i=" << i << " " << "j=" << j << " " << "k=" << k << " " << "l=" << l << endl;
+                if(game[i][j]==1){
+                    count_one++;
+                }
+                if(count_one==5)
+                    cout << "i:" << i << count_one << endl;
+                if(count_one==col){
+                    for (int row_move = i; row_move > 0; row_move--){
+                        for (int col_move = 4; col_move < col+8; col_move++){
+                            game[row_move][col_move] = game[row_move-1][col_move];
+                        }
+                    }
+                }
+                //cout << "&" << block_now[l][k] << " "<< game[i][j] << "&" << endl;
+            }
+                count_one = 0;
         }
 
         //cout << "55555";
@@ -288,6 +299,14 @@ int main()
             }
         }
 
+        for(int i=4; i<row+4; i++){
+        for(int j=4;j<col+4;j++){
+            //cout << i << " " << j << endl;
+            cout << game[i][j];
+        }
+        cout << endl;
+    }
+
         cin >> type;
         if(type=="End")
             break;
@@ -297,13 +316,7 @@ int main()
             break;
         }
     }
-    for(int i=4; i<row+4; i++){
-        for(int j=4;j<col+4;j++){
-            //cout << i << " " << j << endl;
-            cout << game[i][j];
-        }
-        cout << endl;
-    }
+
 
     return 0;
 }
