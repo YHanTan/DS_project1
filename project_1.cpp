@@ -157,6 +157,11 @@ int main()
     cin >> row >> col;
     cin >> type >> drop_pos;
     int game[row+4][col+8]={0};
+    for(int i=0; i<row+4; i++){
+        for(int j=0; j<col+8; j++){
+            game[i][j]=0;
+        }
+    }
     int col_first[col+8]={row+4};
 
     while(type!="End"){
@@ -226,32 +231,43 @@ int main()
             }
         }
         //cout << "33333";
+
         int flag=0, can=0;
         int place_row;
-        for(int i=row+3; i>=0; i--){
+        for(int i=3; i<row+4; i++){
                 //cout << "i:" << i << endl;
             for(int row_pie=3;row_pie>=0;row_pie--){
                 //cout << "***" << i << " " << row_pie << "***" <<endl;
-                for(int col_pie=0; col_pie<4; col_pie++){
+                int col_pie;
+                for(col_pie=0; col_pie<4; col_pie++){
                     if(block_now[row_pie][col_pie] + game[i-(3-row_pie)][drop_pos+3+col_pie]==2){
                         flag=1;
+                        cout << block_now[row_pie][col_pie] << " " << game[i-(3-row_pie)][drop_pos+3+col_pie] << endl;
+                        cout << i-(3-row_pie) << drop_pos+3+col_pie << endl;
                         break;
                     }
                 }
                 if(flag==1){
+                    can=1;
                     flag=0;
                     break;
                 }
-                else if(row_pie==1 && flag!=1){
-                    can=1;
+                else if(flag!=1 && row_pie==0 && col_pie==4 && i==row+3){
+                    can=2;
                     break;
                 }
             }
-            //cout << "can: " << can <<endl;
+            cout << "can: " << can <<endl;
             if(can==1){
                 can = 0;
+                place_row = i-1;
+                cout << "%%%" << place_row << endl;
+                break;
+            }
+            else if(can==2){
+                can = 0;
                 place_row = i;
-                cout << "break";
+                cout << "&&&" << place_row << endl;
                 break;
             }
         }
@@ -266,17 +282,21 @@ int main()
 
         //detect & delete row
         int count_one = 0;
-        int delete_row[4]={0};
-        int count_row;
         for(int i=4;i<row+4;i++){
             for(int j=4;j<col+4;j++){
                 //cout << "i=" << i << " " << "j=" << j << " " << "k=" << k << " " << "l=" << l << endl;
                 if(game[i][j]==1){
                     count_one++;
                 }
-                if(count_one==5)
-                    cout << "i:" << i << count_one << endl;
                 if(count_one==col){
+                    for(int i=4;i<row+4;i++){
+                        cout << "***";
+                        for(j=4;j<col+4;j++){
+                            cout << game[i][j];
+                        }
+                        cout << endl;
+                    }
+                    cout << "i:" << i << count_one << endl;
                     for (int row_move = i; row_move > 0; row_move--){
                         for (int col_move = 4; col_move < col+8; col_move++){
                             game[row_move][col_move] = game[row_move-1][col_move];
