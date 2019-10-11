@@ -165,7 +165,6 @@ int main()
     int col_first[col+8]={row+4};
 
     while(type!="End"){
-        //cout << type << endl;
         int block_now[4][4] = {0};
         if(type=="T1"){
             type_num = 0;
@@ -224,26 +223,20 @@ int main()
         else if(type=="O"){
             type_num = 18;
         }
-        //cout << "2222";
         for(int i=0;i<4;i++){
             for(int j=0;j<4;j++){
                 block_now[i][j] = Pieces[type_num][i][j];
             }
         }
-        //cout << "33333";
 
         int flag=0, can=0;
         int place_row;
         for(int i=3; i<row+4; i++){
-                //cout << "i:" << i << endl;
             for(int row_pie=3;row_pie>=0;row_pie--){
-                //cout << "***" << i << " " << row_pie << "***" <<endl;
                 int col_pie;
                 for(col_pie=0; col_pie<4; col_pie++){
                     if(block_now[row_pie][col_pie] + game[i-(3-row_pie)][drop_pos+3+col_pie]==2){
                         flag=1;
-                        cout << block_now[row_pie][col_pie] << " " << game[i-(3-row_pie)][drop_pos+3+col_pie] << endl;
-                        cout << i-(3-row_pie) << drop_pos+3+col_pie << endl;
                         break;
                     }
                 }
@@ -257,26 +250,20 @@ int main()
                     break;
                 }
             }
-            cout << "can: " << can <<endl;
             if(can==1){
                 can = 0;
                 place_row = i-1;
-                cout << "%%%" << place_row << endl;
                 break;
             }
             else if(can==2){
                 can = 0;
                 place_row = i;
-                cout << "&&&" << place_row << endl;
                 break;
             }
         }
-        //cout << "    " << place_row << "     " << "444444";
         for(int i=place_row, l=3;i>=0 && l>=0;i--, l--){
             for(int j=drop_pos+3, k=0;j<col+8 && k<4;j++, k++){
-                //cout << "i=" << i << " " << "j=" << j << " " << "k=" << k << " " << "l=" << l << endl;
                 game[i][j] += block_now[l][k];
-                //cout << "&" << block_now[l][k] << " "<< game[i][j] << "&" << endl;
             }
         }
 
@@ -284,59 +271,52 @@ int main()
         int count_one = 0;
         for(int i=4;i<row+4;i++){
             for(int j=4;j<col+4;j++){
-                //cout << "i=" << i << " " << "j=" << j << " " << "k=" << k << " " << "l=" << l << endl;
                 if(game[i][j]==1){
                     count_one++;
                 }
                 if(count_one==col){
-                    for(int i=4;i<row+4;i++){
-                        cout << "***";
-                        for(j=4;j<col+4;j++){
-                            cout << game[i][j];
-                        }
-                        cout << endl;
-                    }
-                    cout << "i:" << i << count_one << endl;
                     for (int row_move = i; row_move > 0; row_move--){
                         for (int col_move = 4; col_move < col+8; col_move++){
                             game[row_move][col_move] = game[row_move-1][col_move];
                         }
                     }
                 }
-                //cout << "&" << block_now[l][k] << " "<< game[i][j] << "&" << endl;
             }
                 count_one = 0;
         }
 
-        //cout << "55555";
+        //end_game
         int game_over=0;
+        //detect row over board
         for(int i=0;i<4;i++){
-            for(int j=0, k=col+4;j<4;j++, k++){
-                if(game[i][j]==1 || game[i][k]==1){
-                    cout << "Game over";
+            for(int j=0; j<col+4; j++){
+                if(game[i][j]==1){
                     game_over = 1;
                 }
             }
         }
-
-        for(int i=4; i<row+4; i++){
-        for(int j=4;j<col+4;j++){
-            //cout << i << " " << j << endl;
-            cout << game[i][j];
+        //detect col over board
+        for(int i=0;i<col+4;i++){
+            for(int j=col+4; j<col+8; j++){
+                if(game[i][j]==1){
+                    game_over = 2;
+                }
+            }
         }
-        cout << endl;
-    }
 
+        if(game_over!=0)
+            break;
         cin >> type;
         if(type=="End")
             break;
         cin >> drop_pos;
-        if(game_over==1){
-            cout << "break" << endl;
-            break;
-        }
     }
 
-
+    for(int i=4; i<row+4; i++){
+        for(int j=4;j<col+4;j++){
+            cout << game[i][j];
+        }
+        cout << endl;
+    }
     return 0;
 }
