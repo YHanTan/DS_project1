@@ -261,8 +261,10 @@ int main()
                 break;
             }
         }
+        int tmp_prev[row+4][col+4]={0};
         for(int i=place_row, l=3;i>=0 && l>=0;i--, l--){
             for(int j=drop_pos+3, k=0;j<col+8 && k<4;j++, k++){
+                tmp_prev[i][j] = game[i][j];
                 game[i][j] += block_now[l][k];
             }
         }
@@ -287,19 +289,31 @@ int main()
 
         //end_game
         int game_over=0;
-        //detect row over board
-        for(int i=0;i<4;i++){
-            for(int j=0; j<col+4; j++){
-                if(game[i][j]==1){
-                    game_over = 1;
-                }
-            }
-        }
+
         //detect col over board
-        for(int i=0;i<col+4;i++){
+        for(int i=0;i<col+4 || game_over==0;i++){
             for(int j=col+4; j<col+8; j++){
                 if(game[i][j]==1){
                     game_over = 2;
+                    break;
+                }
+            }
+        }
+
+        //detect row over board
+        for(int i=0;i<4 || game_over==0;i++){
+            for(int j=0; j<col+4; j++){
+                if(game[i][j]==1){
+                    game_over = 1;
+                    break;
+                }
+            }
+        }
+
+        if(game_over==2){
+            for(int k=0;k<row+4;k++){
+                for(int l=0;l<col+4;l++){
+                    game[k][l] = tmp_prev[k][l];
                 }
             }
         }
