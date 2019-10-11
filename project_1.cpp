@@ -291,7 +291,7 @@ int main()
         int game_over=0;
 
         //detect col over board
-        for(int i=0;i<col+4 || game_over==0;i++){
+        for(int i=0;i<col+4 && game_over==0;i++){
             for(int j=col+4; j<col+8; j++){
                 if(game[i][j]==1){
                     game_over = 2;
@@ -301,7 +301,7 @@ int main()
         }
 
         //detect row over board
-        for(int i=0;i<4 || game_over==0;i++){
+        for(int i=0;i<4 && game_over==0;i++){
             for(int j=0; j<col+4; j++){
                 if(game[i][j]==1){
                     game_over = 1;
@@ -309,7 +309,12 @@ int main()
                 }
             }
         }
-
+for(int i=4; i<row+4; i++){
+        for(int j=4;j<col+4;j++){
+            cout << game[i][j];
+        }
+        cout << endl;
+    }
         if(game_over==2){
             for(int k=0;k<row+4;k++){
                 for(int l=0;l<col+4;l++){
@@ -317,7 +322,7 @@ int main()
                 }
             }
         }
-
+        //cout << game_over;
         if(game_over!=0)
             break;
         cin >> type;
@@ -326,11 +331,6 @@ int main()
         cin >> drop_pos;
     }
 
-    for(int i=4; i<row+4; i++){
-        for(int j=4;j<col+4;j++){
-            cout << game[i][j];
-        }
-        cout << endl;
-    }
+
     return 0;
 }
