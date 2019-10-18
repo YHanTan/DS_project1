@@ -318,6 +318,7 @@ int main()
 
                 //detect & delete row
                 int count_one = 0;
+                for(int k=0;k<4;k++){
                 for(int i=4;i<row+4;i++){
                     for(int j=4;j<col+4;j++){
                         if(game[i][j]==1){
@@ -333,16 +334,17 @@ int main()
                     }
                     count_one = 0;
                 }
+                }
 
                 //end_game
                 int game_over=0;
-
+             
                 //detect row over board
                 for(int i=0;i<4 && game_over==0;i++){
                     for(int j=0; j<col+4; j++){
                         if(game[i][j]==1){
                             game_over = 1;
-                            //cout << "Game_Over: " << game_over << " " << i << j;
+                            cout << "Game_Over: " << game_over << " " << i << j;
                             break;
                         }
                     }
