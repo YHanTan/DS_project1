@@ -182,22 +182,6 @@ int main()
             cout << type << ' ';
 
             if(type=="End"){
-                int final_count = 0;
-                for(int i=row+3;i>=4;i--){
-                    for(int j=col+3;j>=4;j--){
-                        if(game[i][j]==1){
-                            final_count++;
-                        }
-                        if(final_count==col){
-                            for (int row_move = i; row_move > 0; row_move--){
-                                for (int col_move = 4; col_move < col+4; col_move++){
-                                    game[row_move][col_move] = game[row_move-1][col_move];
-                                }
-                            }
-                        }
-                    }
-                    final_count = 0;
-                }
                 for(int i=4; i<row+4; i++){
                     for(int j=4;j<col+4;j++){
                         output << game[i][j];
@@ -338,7 +322,7 @@ int main()
 
                 //end_game
                 int game_over=0;
-             
+            
                 //detect row over board
                 for(int i=0;i<4 && game_over==0;i++){
                     for(int j=0; j<col+4; j++){
@@ -351,40 +335,13 @@ int main()
                 }
 
                 if(game_over!=0){
-                    int final_count = 0;
-                    for(int i=row+3;i>=4;i--){
-                        for(int j=col+3;j>=4;j--){
-                            if(game[i][j]==1){
-                                final_count++;
-                            }
-                            if(final_count==col){
-                                for (int row_move = i; row_move > 0; row_move--){
-                                    for (int col_move = 4; col_move < col+4; col_move++){
-                                        game[row_move][col_move] = game[row_move-1][col_move];
-                                    }
-                                }
-                            }
+                    for(int i=4; i<row+4; i++){
+                        for(int j=4;j<col+4;j++){
+                            output << game[i][j];
                         }
-                        final_count = 0;
+                        output << endl;
                     }
-                    game_over = 0;
-                    for(int i=0;i<4 && game_over==0;i++){
-                        for(int j=0; j<col+4; j++){
-                            if(game[i][j]==1){
-                                game_over = 1;
-                                break;
-                            }
-                        }
-                    }
-                    if(game_over!=0){
-                        for(int i=4; i<row+4; i++){
-                            for(int j=4;j<col+4;j++){
-                                output << game[i][j];
-                            }
-                            output << endl;
-                        }
-                        break;
-                    }
+                    break;
                 }
         }
     }
