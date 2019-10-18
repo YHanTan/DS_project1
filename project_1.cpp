@@ -165,6 +165,7 @@ int main()
     int drop_pos;
     string line;
     string command[MAX];
+    string end_game = "End";
     int index=0;
     if(input.is_open()){
         input >> row >> col;
@@ -179,6 +180,15 @@ int main()
         while(!input.eof()){
             input >> type;
             cout << type << ' ';
+            if(type=="End"){
+                for(int i=4; i<row+4; i++){
+                    for(int j=4;j<col+4;j++){
+                        output << game[i][j];
+                    }
+                    output << endl;
+                }
+                break;
+            }
             if(type!="End"){
                 input >> drop_pos;
                 cout << drop_pos << '\n';
@@ -313,14 +323,14 @@ int main()
                 int game_over=0;
 
                 //detect col over board
-                for(int i=0;i<col+4 && game_over==0;i++){
+                /*for(int i=0;i<col+4 && game_over==0;i++){
                     for(int j=col+4; j<col+8; j++){
                         if(game[i][j]==1){
                             game_over = 2;
                             break;
                         }
                     }
-                }
+                }*/
 
                 //detect row over board
                 for(int i=0;i<4 && game_over==0;i++){
@@ -332,13 +342,13 @@ int main()
                     }
                 }
 
-                if(game_over==2){
+                /*if(game_over==2){
                     for(int k=0;k<row+4;k++){
                         for(int l=0;l<col+4;l++){
                             game[k][l] = tmp_prev[k][l];
                         }
                     }
-                }
+                }*/
                 //cout << game_over;
                 if(game_over!=0){
                     for(int i=4; i<row+4; i++){
@@ -350,15 +360,9 @@ int main()
                     break;
                 }
                 //cin >> type;
-                if(type=="End"){
-                    for(int i=4; i<row+4; i++){
-                        for(int j=4;j<col+4;j++){
-                            output << game[i][j];
-                        }
-                        output << endl;
-                    }
-                    break;
-                }
+                //if(type==end_game)
+                    //cout << "555";
+
                 //cin >> drop_pos;
             //}
                 /*input.getline(line, 100);
