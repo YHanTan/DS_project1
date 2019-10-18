@@ -180,6 +180,7 @@ int main()
         while(!input.eof()){
             input >> type;
             cout << type << ' ';
+
             if(type=="End"){
                 int final_count = 0;
                 for(int i=row+3;i>=4;i--){
@@ -340,8 +341,8 @@ int main()
                 for(int i=0;i<4 && game_over==0;i++){
                     for(int j=0; j<col+4; j++){
                         if(game[i][j]==1){
-                            cout << "Game_Over: " << game_over;
                             game_over = 1;
+                            //cout << "Game_Over: " << game_over << " " << i << j;
                             break;
                         }
                     }
@@ -364,13 +365,24 @@ int main()
                         }
                         final_count = 0;
                     }
-                    for(int i=4; i<row+4; i++){
-                        for(int j=4;j<col+4;j++){
-                            output << game[i][j];
+                    game_over = 0;
+                    for(int i=0;i<4 && game_over==0;i++){
+                        for(int j=0; j<col+4; j++){
+                            if(game[i][j]==1){
+                                game_over = 1;
+                                break;
+                            }
                         }
-                        output << endl;
                     }
-                    break;
+                    if(game_over!=0){
+                        for(int i=4; i<row+4; i++){
+                            for(int j=4;j<col+4;j++){
+                                output << game[i][j];
+                            }
+                            output << endl;
+                        }
+                        break;
+                    }
                 }
         }
     }
