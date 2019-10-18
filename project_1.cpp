@@ -181,6 +181,22 @@ int main()
             input >> type;
             cout << type << ' ';
             if(type=="End"){
+                int final_count = 0;
+                for(int i=row+3;i>=4;i--){
+                    for(int j=col+3;j>=4;j--){
+                        if(game[i][j]==1){
+                            final_count++;
+                        }
+                        if(final_count==col){
+                            for (int row_move = i; row_move > 0; row_move--){
+                                for (int col_move = 4; col_move < col+4; col_move++){
+                                    game[row_move][col_move] = game[row_move-1][col_move];
+                                }
+                            }
+                        }
+                    }
+                    final_count = 0;
+                }
                 for(int i=4; i<row+4; i++){
                     for(int j=4;j<col+4;j++){
                         output << game[i][j];
@@ -303,20 +319,20 @@ int main()
 
                 //detect & delete row
                 int count_one = 0;
-                for(int i=4;i<row+4;i++){
-                    for(int j=4;j<col+4;j++){
+                for(int i=row+3;i>=4;i--){
+                    for(int j=col+3;j>=4;j--){
                         if(game[i][j]==1){
                             count_one++;
                         }
                         if(count_one==col){
                             for (int row_move = i; row_move > 0; row_move--){
-                                for (int col_move = 4; col_move < col+8; col_move++){
+                                for (int col_move = 4; col_move < col+4; col_move++){
                                     game[row_move][col_move] = game[row_move-1][col_move];
                                 }
                             }
                         }
                     }
-                        count_one = 0;
+                    count_one = 0;
                 }
 
                 //end_game
@@ -336,6 +352,7 @@ int main()
                 for(int i=0;i<4 && game_over==0;i++){
                     for(int j=0; j<col+4; j++){
                         if(game[i][j]==1){
+                            cout << "Game_Over: " << game_over;
                             game_over = 1;
                             break;
                         }
@@ -351,6 +368,22 @@ int main()
                 }*/
                 //cout << game_over;
                 if(game_over!=0){
+                    int final_count = 0;
+                    for(int i=row+3;i>=4;i--){
+                        for(int j=col+3;j>=4;j--){
+                            if(game[i][j]==1){
+                                final_count++;
+                            }
+                            if(final_count==col){
+                                for (int row_move = i; row_move > 0; row_move--){
+                                    for (int col_move = 4; col_move < col+4; col_move++){
+                                        game[row_move][col_move] = game[row_move-1][col_move];
+                                    }
+                                }
+                            }
+                        }
+                        final_count = 0;
+                    }
                     for(int i=4; i<row+4; i++){
                         for(int j=4;j<col+4;j++){
                             output << game[i][j];
