@@ -211,8 +211,6 @@ int main()
             }
             else break;
 
-            //int col_first[col+8]={row+4};
-            //while(type!="End"){
                 int block_now[4][4] = {0};
                 if(type=="T1"){
                     type_num = 0;
@@ -319,8 +317,8 @@ int main()
 
                 //detect & delete row
                 int count_one = 0;
-                for(int i=row+3;i>=4;i--){
-                    for(int j=col+3;j>=4;j--){
+                for(int i=4;i<row+4;i++){
+                    for(int j=4;j<col+4;j++){
                         if(game[i][j]==1){
                             count_one++;
                         }
@@ -338,16 +336,6 @@ int main()
                 //end_game
                 int game_over=0;
 
-                //detect col over board
-                /*for(int i=0;i<col+4 && game_over==0;i++){
-                    for(int j=col+4; j<col+8; j++){
-                        if(game[i][j]==1){
-                            game_over = 2;
-                            break;
-                        }
-                    }
-                }*/
-
                 //detect row over board
                 for(int i=0;i<4 && game_over==0;i++){
                     for(int j=0; j<col+4; j++){
@@ -359,14 +347,6 @@ int main()
                     }
                 }
 
-                /*if(game_over==2){
-                    for(int k=0;k<row+4;k++){
-                        for(int l=0;l<col+4;l++){
-                            game[k][l] = tmp_prev[k][l];
-                        }
-                    }
-                }*/
-                //cout << game_over;
                 if(game_over!=0){
                     int final_count = 0;
                     for(int i=row+3;i>=4;i--){
@@ -392,15 +372,6 @@ int main()
                     }
                     break;
                 }
-                //cin >> type;
-                //if(type==end_game)
-                    //cout << "555";
-
-                //cin >> drop_pos;
-            //}
-                /*input.getline(line, 100);
-                command[index++] = line;
-            }*/
         }
     }
     input.close();
